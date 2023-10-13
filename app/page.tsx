@@ -1,7 +1,9 @@
 'use client';
 import React, { useState } from 'react';
+import { FC } from 'react';
+import { IStation } from './interfaces/interfaces';
 
-const Home = () => {
+const Home: FC<IStation> = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [stationCodes, setStationCodes] = useState('');
   const handleSearch = (e) => {
@@ -47,7 +49,7 @@ const Home = () => {
       <button onClick={() => getStationCodes(searchQuery)}>Search</button>
       {stationCodes ? (
         <div>
-          {stationCodes.map((stationCode:string, i: number) => (
+          {stationCodes.map((stationCode:IStation, i: number) => (
             <p key={i}>{stationCode.namen.lang}</p>
           ))}
         </div>
