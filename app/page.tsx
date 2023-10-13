@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FC } from 'react';
 import { IStation } from './interfaces/interfaces';
 import { useRouter } from 'next/navigation';
-import styles from './styles/home.modules.css'
+import styles from './styles/Home.module.scss';
 
 const Home: FC<IStation> = () => {
   const router = useRouter();
@@ -41,31 +41,35 @@ const Home: FC<IStation> = () => {
   };
 
   return (
-    <main>
-      <h1>Home</h1>
-      <input
-        type="text"
-        placeholder="Bestemming"
-        value={searchQuery}
-        onChange={handleSearch}
-      />
-      <button onClick={() => getStationCodes(searchQuery)}>Search</button>
-      {stationCodes ? (
-        <div>
-          {stationCodes.map((stationCode: IStation, i: number) => (
-            <p
-              key={i}
-              onClick={() =>
-                router.push(`/vertrektijden/${stationCode.code}`)
-              }
-            >
-              {stationCode.namen.lang}
-            </p>
-          ))}
-        </div>
-      ) : (
-        ''
-      )}
+    <main className={styles.main}>
+      <section className={styles.searchElement}>
+        {' '}
+        <h2 className={styles.subtitle}>Stations informatie</h2>
+        <h1 className={styles.title}>Zoek je station</h1>
+        <input
+          type="text"
+          placeholder="Bestemming"
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+        <button onClick={() => getStationCodes(searchQuery)}>Search</button>
+        {stationCodes ? (
+          <div>
+            {stationCodes.map((stationCode: IStation, i: number) => (
+              <p
+                key={i}
+                onClick={() =>
+                  router.push(`/vertrektijden/${stationCode.code}`)
+                }
+              >
+                {stationCode.namen.lang}
+              </p>
+            ))}
+          </div>
+        ) : (
+          ''
+        )}
+      </section>
     </main>
   );
 };
