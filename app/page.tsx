@@ -52,7 +52,12 @@ const Home: FC<IStation> = () => {
       {stationCodes ? (
         <div>
           {stationCodes.map((stationCode: IStation, i: number) => (
-            <p key={i} onClick={() => router.push(`/vertrektijden`)}>
+            <p
+              key={i}
+              onClick={() =>
+                router.push(`/vertrektijden?stationCode=${stationCode.code}`)
+              }
+            >
               {stationCode.namen.lang}
             </p>
           ))}
