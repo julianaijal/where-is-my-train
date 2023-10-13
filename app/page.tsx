@@ -55,7 +55,7 @@ const Home: FC<IStation> = () => {
             <p
               key={i}
               onClick={() =>
-                router.push(`/vertrektijden?stationCode=${stationCode.code}`)
+                router.push(`/vertrektijden/${stationCode.code}`)
               }
             >
               {stationCode.namen.lang}
