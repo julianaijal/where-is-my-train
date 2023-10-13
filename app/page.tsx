@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import { FC } from 'react';
 import { IStation } from './interfaces/interfaces';
+import { useRouter } from 'next/navigation';
 
 const Home: FC<IStation> = () => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [stationCodes, setStationCodes] = useState('');
   const handleSearch = (e) => {
@@ -49,8 +51,10 @@ const Home: FC<IStation> = () => {
       <button onClick={() => getStationCodes(searchQuery)}>Search</button>
       {stationCodes ? (
         <div>
-          {stationCodes.map((stationCode:IStation, i: number) => (
-            <p key={i}>{stationCode.namen.lang}</p>
+          {stationCodes.map((stationCode: IStation, i: number) => (
+            <p key={i} onClick={() => router.push(`/vertrektijden`)}>
+              {stationCode.namen.lang}
+            </p>
           ))}
         </div>
       ) : (
