@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import styles from './../../styles/departures.modules.css'
 
 const Page = ({ params }: { params: { id: string } }) => {
   const [stationDepartureTimes, setstationDepartureTimes] = useState('');

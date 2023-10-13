@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FC } from 'react';
 import { IStation } from './interfaces/interfaces';
 import { useRouter } from 'next/navigation';
+import styles from './styles/home.modules.css'
 
 const Home: FC<IStation> = () => {
   const router = useRouter();
