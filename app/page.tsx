@@ -1,10 +1,38 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [stationCodes, setStationCodes] = useState('');
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const BASE_URL = 'https://gateway.apiportal.ns.nl';
+  const SUBSCRIPTION_KEY = 'ns-api';
+
+  const getStationCodes = async (stationName: string) => {
+    const headers = new Headers({
+      'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
+    });
+
+    const endpoint = `${BASE_URL}/reisinformatie-api/api/v2/stations?q=${stationName}`;
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'GET',
+        headers: headers,
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.payload);
+        setStationCodes(data.payload);
+      } else {
+        console.error(`Error fetching station codes: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(`There was a problem with the fetch operation: ${error}`);
+    }
   };
 
   return (
@@ -16,35 +44,18 @@ const Home = () => {
         value={searchQuery}
         onChange={handleSearch}
       />
-      <button onClick={getStationCodes(searchQuery)}>Search</button>
+      <button onClick={() => getStationCodes(searchQuery)}>Search</button>
+      {stationCodes ? (
+        <div>
+          {stationCodes.map((stationCode:string, i: number) => (
+            <p key={i}>{stationCode.namen.lang}</p>
+          ))}
+        </div>
+      ) : (
+        ''
+      )}
     </main>
   );
 };
 
 export default Home;
-
-const BASE_URL = 'https://gateway.apiportal.ns.nl';
-const SUBSCRIPTION_KEY = 'ns-api';
-
-const getStationCodes = async (stationName: string) => {
-  const headers = new Headers({
-    'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
-  });
-
-  const endpoint = `${BASE_URL}/reisinformatie-api/api/v2/stations?q=${stationName}`;
-
-  try {
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: headers,
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-    } else {
-      console.error(`Error fetching station codes: ${response.statusText}`);
-    }
-  } catch (error) {
-    console.error(`There was a problem with the fetch operation: ${error}`);
-  }
-};
