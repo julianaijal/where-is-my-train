@@ -43,11 +43,13 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-    <h1 className={styles.title}>Vertrektijden</h1>
+      <h1 className={styles.title}>Vertrektijden</h1>
       {stationDepartureTimes ? (
         <div>
           {stationDepartureTimes.map((stationDeparture, i: number) => (
-            <p key={i}>{stationDeparture.direction} - {stationDeparture.plannedDateTime} </p>
+            <p key={i}>
+              {stationDeparture.direction} - {stationDeparture.plannedDateTime}{' '}
+            </p>
           ))}
         </div>
       ) : (
