@@ -1,59 +1,40 @@
-'use client';
-import { useEffect } from 'react';
-import { useState } from 'react';
+'use client'
+import { useEffect, useState } from 'react';
 import styles from './../../styles/Departures.module.scss';
+import { fetchDepartureData } from './../../_utils/api';
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const [stationDepartureTimes, setstationDepartureTimes] = useState('');
-  useEffect(() => {
-    getDeptarturesData(params.id);
-  }, [params.id]);
+  const [stationDepartureTimes, setStationDepartureTimes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const getDeptarturesData = async (stationCode: string) => {
-    const baseUrl =
-      'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures';
-    const queryParams = {
-      lang: 'en',
-      station: stationCode,
-      maxJourneys: 10,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const departureData = await fetchDepartureData(params.id);
+        setStationDepartureTimes(departureData);
+        setLoading(false);
+      } catch (error) {
+        console.error('An error occurred:', error);
+        setLoading(false);
+      }
     };
 
-    const queryString = Object.keys(queryParams)
-      .map((key) => key + '=' + queryParams[key])
-      .join('&');
-    const url = `${baseUrl}?${queryString}`;
-
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Ocp-Apim-Subscription-Key': 'ns-api',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Data received:', data);
-        setstationDepartureTimes(data.payload.departures);
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
-      });
-
-    return getDeptarturesData;
-  };
+    fetchData();
+  }, [params.id]);
 
   return (
     <>
       <h1 className={styles.title}>Vertrektijden</h1>
-      {stationDepartureTimes ? (
+      {loading ? (
+        'Loading...'
+      ) : (
         <div>
-          {stationDepartureTimes.map((stationDeparture, i: number) => (
+          {stationDepartureTimes.map((stationDeparture, i) => (
             <p key={i}>
-              {stationDeparture.direction} - {stationDeparture.plannedDateTime}{' '}
+              {stationDeparture.direction} - {stationDeparture.plannedDateTime}
             </p>
           ))}
         </div>
-      ) : (
-        'Loading..'
       )}
     </>
   );
