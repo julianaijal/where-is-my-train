@@ -1,11 +1,11 @@
-// to do: move token
 const BASE_URL = 'https://gateway.apiportal.ns.nl';
-const SUBSCRIPTION_KEY = 'ns-api';
+const apiKey = process.env.ns_api|| '';
 
-export const getStationCodes = async (stationName) => {
-  const headers = new Headers({
-    'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
-  });
+
+
+export const getStationCodes = async (stationName:string) => {
+  const headers = new Headers();
+  headers.append('Ocp-Apim-Subscription-Key', apiKey);
 
   const endpoint = `${BASE_URL}/reisinformatie-api/api/v2/stations?q=${stationName}`;
 
@@ -25,7 +25,7 @@ export const getStationCodes = async (stationName) => {
   }
 };
 
-export const fetchDepartureData = async (stationCode) => {
+export const fetchDepartureData = async (stationCode:string) => {
   const baseUrl =
     'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures';
   const queryParams = {
@@ -43,7 +43,7 @@ export const fetchDepartureData = async (stationCode) => {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Ocp-Apim-Subscription-Key': 'ns-api',
+        'Ocp-Apim-Subscription-Key': apiKey,
       },
     });
 
