@@ -1,7 +1,5 @@
 const BASE_URL = 'https://gateway.apiportal.ns.nl';
-const apiKey = process.env.ns_api|| '';
-
-
+const apiKey = process.env.NS_API || '';
 
 export const getStationCodes = async (stationName:string) => {
   const headers = new Headers();
@@ -26,6 +24,8 @@ export const getStationCodes = async (stationName:string) => {
 };
 
 export const fetchDepartureData = async (stationCode:string) => {
+  const headers = new Headers();
+  headers.append('Ocp-Apim-Subscription-Key', apiKey);
   const baseUrl =
     'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures';
   const queryParams = {
@@ -42,9 +42,7 @@ export const fetchDepartureData = async (stationCode:string) => {
   try {
     const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Ocp-Apim-Subscription-Key': apiKey,
-      },
+      headers: headers,
     });
 
     if (!response.ok) {
