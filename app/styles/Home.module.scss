@@ -1,18 +1,77 @@
+$primaryColor: rgb(0, 48, 130);
+$secondaryColor: rgb(255, 201, 23);
+$searchInputHeight: 3.5rem;
+$searchInputFont: 'Gill Sans', sans-serif;
+
 .main {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
-.title {
-  font-size: 32px;
-  color: rgb(0, 48, 130);
-}
+.search {
+  border-radius: 0.3125rem;
+  padding: 2rem;
+  background-color: $secondaryColor;
+  width: 100%;
+  max-width: 62.5rem;
+  margin: 0 auto;
 
-.subtitle {
-  font-size: 16px;
-  color: rgb(0, 48, 130);
-}
+  &Title, &Subtitle {
+    font-size: 2rem;
+    color: $primaryColor;
+  }
 
-.searchElement {
-  padding: 32px;
-  background-color: rgb(255, 201, 23);
+  &Subtitle {
+    font-size: 1rem;
+  }
+
+  &Wrapper {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  &Input, &Button {
+    height: $searchInputHeight;
+    background-color: white;
+    font-family: $searchInputFont;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    padding: 1rem;
+    border: none;
+    color: $primaryColor;
+  }
+
+  &Input {
+    width: 100%;
+  }
+  &Button {
+    background-color: #0063d3;
+    padding: 0.625rem 1.125rem;
+    border: 0.0625rem solid transparent;
+    cursor: pointer;
+    color: white;
+  }
+
+  &List {
+    padding: 1rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.3125rem;
+    margin-top: 0.25rem;
+
+    &Item {
+      padding: 0.5rem;
+      color: black;
+      font-family: $searchInputFont;
+      border-radius: 0.3125rem;
+
+      &:hover {
+        background-color: whitesmoke;
+      }
+    }
+  }
 }
