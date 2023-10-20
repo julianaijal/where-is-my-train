@@ -44,20 +44,14 @@ const Home: FC<IStation> = () => {
           </button>
         </div>
 
-        {stationCodes.length > 0 ? (
+        {stationCodes.length > 0 && (
           <div className={styles.searchList}>
             {stationCodes.map((stationCode: IStation, i: number) => (
-              <Link
-                key={i}
-                href={`/vertrektijden/${stationCode.code}`}
-                className={styles.searchListItem}
-              >
+              <Link key={i} href={`/vertrektijden/${stationCode.code}`} className={styles.searchListItem}>
                 🚉 {stationCode.namen.lang}
               </Link>
             ))}
           </div>
-        ) : (
-          ''
         )}
       </section>
     </main>
