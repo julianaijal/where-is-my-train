@@ -4,7 +4,7 @@ import styles from './../../styles/Departures.module.scss';
 import { fetchDepartureData } from './../../_utils/api';
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const [stationDepartureTimes, setStationDepartureTimes] = useState([]);
+  const [stationDepartureTimes, setStationDepartureTimes] = useState<{ direction: string, plannedDateTime: string }[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

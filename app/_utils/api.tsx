@@ -23,16 +23,16 @@ export const getStationCodes = async (stationName:string) => {
   }
 };
 
-export const fetchDepartureData = async (stationCode:string) => {
+export const fetchDepartureData = async (stationCode: string) => {
   const headers = new Headers();
   headers.append('Ocp-Apim-Subscription-Key', apiKey);
   const baseUrl =
     'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures';
-  const queryParams = {
-    lang: 'en',
-    station: stationCode,
-    maxJourneys: 10,
-  };
+    const queryParams = {
+      lang: 'en',
+      station: stationCode,
+      maxJourneys: 10,
+    } as { [key: string]: string | number };
 
   const queryString = Object.keys(queryParams)
     .map((key) => key + '=' + queryParams[key])
@@ -51,7 +51,7 @@ export const fetchDepartureData = async (stationCode:string) => {
 
     const data = await response.json();
     return data.payload.departures;
-  } catch (error) {
+  } catch (error:any) {
     throw new Error('An error occurred: ' + error.message);
   }
 };

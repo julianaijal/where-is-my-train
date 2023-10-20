@@ -1,12 +1,10 @@
 'use client';
 import React, { useState } from 'react';
-import { FC } from 'react';
 import { IStation } from './interfaces/interfaces';
 import styles from './styles/Home.module.scss';
 import { getStationCodes } from './_utils/api';
-import Link from 'next/link';
 
-const Home: FC<IStation> = () => {
+const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [stationCodes, setStationCodes] = useState<IStation[]>([]);
   const [showNoResults, setShowNoResults] = useState(false);
@@ -22,7 +20,7 @@ const Home: FC<IStation> = () => {
       const codes = await getStationCodes(searchQuery);
       setStationCodes(codes);
       setShowNoResults(codes.length === 0);
-    } catch (error) {
+    } catch (error:any) {
       setShowNoResults(true);
       console.error(error.message);
     }
@@ -58,13 +56,13 @@ const Home: FC<IStation> = () => {
         {stationCodes.length > 0 && (
           <div className={styles.searchList}>
             {stationCodes.map((stationCode: IStation, i: number) => (
-              <Link
+              <a
                 key={i}
                 href={`/vertrektijden/${stationCode.code}`}
                 className={styles.searchListItem}
               >
                 🚉 {stationCode.namen.lang}
-              </Link>
+              </a>
             ))}
           </div>
         )}
