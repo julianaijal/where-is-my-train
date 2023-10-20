@@ -8,6 +8,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [stationCodes, setStationCodes] = useState<IStation[]>([]);
   const [showNoResults, setShowNoResults] = useState(false);
+  const errorMessage = "We kunnen je bestemming niet vinden, probeer het opnieuw.";
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -20,11 +21,29 @@ const Home = () => {
       const codes = await getStationCodes(searchQuery);
       setStationCodes(codes);
       setShowNoResults(codes.length === 0);
-    } catch (error:any) {
+    } catch (error: any) {
       setShowNoResults(true);
       console.error(error.message);
     }
   };
+
+  const renderErrorMessage = () => (
+    <div className={styles.searchList}>
+      <p className={styles.searchListItemError}>
+        {errorMessage}
+      </p>
+    </div>
+  );
+
+  const renderStation = (stationCode: IStation, i: number) => (
+    <a
+      key={i}
+      href={`/vertrektijden/${stationCode.code}`}
+      className={styles.searchListItem}
+    >
+      🚉 {stationCode.namen.lang}
+    </a>
+  );
 
   return (
     <main className={styles.main}>
@@ -46,24 +65,10 @@ const Home = () => {
             Search
           </button>
         </div>
-        {showNoResults && (
-          <div className={styles.searchList}>
-            <p className={styles.searchListItemError}>
-              We kunnen je bestemming niet vinden, probeer het opnieuw.
-            </p>
-          </div>
-        )}
+        {showNoResults && renderErrorMessage()}
         {stationCodes.length > 0 && (
           <div className={styles.searchList}>
-            {stationCodes.map((stationCode: IStation, i: number) => (
-              <a
-                key={i}
-                href={`/vertrektijden/${stationCode.code}`}
-                className={styles.searchListItem}
-              >
-                🚉 {stationCode.namen.lang}
-              </a>
-            ))}
+            {stationCodes.map(renderStation)}
           </div>
         )}
       </section>
