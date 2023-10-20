@@ -8,17 +8,22 @@ import Link from 'next/link';
 
 const Home: FC<IStation> = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [stationCodes, setStationCodes] = useState([]);
+  const [stationCodes, setStationCodes] = useState<IStation[]>([]);
+  const [showNoResults, setShowNoResults] = useState(false);
 
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setShowNoResults(false);
   };
 
   const handleGetStationCodes = async () => {
     try {
       const codes = await getStationCodes(searchQuery);
       setStationCodes(codes);
+      setShowNoResults(codes.length === 0);
     } catch (error) {
+      setShowNoResults(true);
       console.error(error.message);
     }
   };
@@ -43,11 +48,21 @@ const Home: FC<IStation> = () => {
             Search
           </button>
         </div>
-
+        {showNoResults && (
+          <div className={styles.searchList}>
+            <p className={styles.searchListItemError}>
+              We kunnen je bestemming niet vinden, probeer het opnieuw.
+            </p>
+          </div>
+        )}
         {stationCodes.length > 0 && (
           <div className={styles.searchList}>
             {stationCodes.map((stationCode: IStation, i: number) => (
-              <Link key={i} href={`/vertrektijden/${stationCode.code}`} className={styles.searchListItem}>
+              <Link
+                key={i}
+                href={`/vertrektijden/${stationCode.code}`}
+                className={styles.searchListItem}
+              >
                 🚉 {stationCode.namen.lang}
               </Link>
             ))}

@@ -35,7 +35,7 @@ $searchInputFont: 'Gill Sans', sans-serif;
 
   &Input, &Button {
     height: $searchInputHeight;
-    background-color: white;
+    background-color: #ffffff;
     font-family: $searchInputFont;
     border-radius: 0.25rem;
     font-size: 1rem;
@@ -52,12 +52,12 @@ $searchInputFont: 'Gill Sans', sans-serif;
     padding: 0.625rem 1.125rem;
     border: 0.0625rem solid transparent;
     cursor: pointer;
-    color: white;
+    color: #ffffff;
   }
 
   &List {
     padding: 1rem;
-    background-color: white;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     border-radius: 0.3125rem;
@@ -71,6 +71,11 @@ $searchInputFont: 'Gill Sans', sans-serif;
 
       &:hover {
         background-color: whitesmoke;
+      }
+
+      &Error{
+        color: #ff0000;
+        font-family: $searchInputFont;
       }
     }
   }
