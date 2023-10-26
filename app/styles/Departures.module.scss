@@ -1,4 +1,16 @@
-.title{
-    font-size: 32px;
-    color: rgb(0, 48, 130);
+$primaryColor: rgb(0, 48, 130);
+$secondaryColor: rgb(255, 201, 23);
+
+.title {
+  font-size: 32px;
+  color: rgb(0, 48, 130);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }

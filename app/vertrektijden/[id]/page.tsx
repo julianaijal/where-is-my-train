@@ -1,10 +1,12 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import styles from './../../styles/Departures.module.scss';
 import { fetchDepartureData } from './../../_utils/api';
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const [stationDepartureTimes, setStationDepartureTimes] = useState<{ direction: string, plannedDateTime: string }[]>([]);
+  const [stationDepartureTimes, setStationDepartureTimes] = useState<
+    { direction: string; plannedDateTime: string }[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   return (
-    <>
+    <section className={styles.main}>
       <h1 className={styles.title}>Vertrektijden</h1>
       {loading ? (
         'Loading...'
@@ -36,7 +38,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           ))}
         </div>
       )}
-    </>
+    </section>
   );
 };
 
