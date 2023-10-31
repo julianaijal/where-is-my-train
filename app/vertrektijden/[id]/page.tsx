@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import styles from './../../styles/Departures.module.scss';
 import { fetchDepartureData } from './../../_utils/api';
-import TrainEntry from '@/app/_components/TrainEntry';
+import Table from '@/app/_components/_departures/Table';
 
 const Page = ({ params }: { params: { id: string } }) => {
   const [stationDepartureTimes, setStationDepartureTimes] = useState<
@@ -31,14 +31,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       {loading ? (
         'Loading...'
       ) : (
-        <div>
-          {stationDepartureTimes.map(({direction, plannedDateTime}, i) => (
-            <TrainEntry direction={direction}  departure={plannedDateTime} key={i}/>
-          //   <p key={i}>
-          //   {direction} - {plannedDateTime}
-          // </p>
-          ))}
-        </div>
+          <Table departures={stationDepartureTimes}/>
       )}
     </section>
   );

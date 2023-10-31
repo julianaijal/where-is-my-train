@@ -3,10 +3,13 @@ export interface IStation {
     lang: string;
   };
   code: string;
-
 }
 
+export interface IDepartures {
+  departures: ITrain[];
+}
 export interface ITrain {
   direction: string;
-  departure: string;
+  plannedDateTime?: string;
+  departure?: string;
 }

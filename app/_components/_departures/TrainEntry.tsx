@@ -1,10 +1,10 @@
-import { ITrain } from "../interfaces/interfaces";
+import { ITrain } from "../../interfaces/interfaces";
 
 const TrainEntry = ({ direction, departure }: ITrain) => {
   return (
-    <p>
+    <tr>
       {direction} - {departure}
-    </p>
+    </tr>
   );
 };
 
