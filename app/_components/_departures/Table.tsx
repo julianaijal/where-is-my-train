@@ -4,8 +4,18 @@ import { IDepartures } from '@/app/interfaces/interfaces';
 const Table = ({ departures }: IDepartures) => {
   return (
     <table>
-      {departures.map(({direction, plannedDateTime}, i) => (
-        <TrainEntry direction={direction} departure={plannedDateTime} key={i} />
+      <tr>
+        <th>Vertrektijd</th>
+        <th>Naar</th>
+        <th>Platform</th>
+      </tr>
+      {departures.map(({ direction, plannedDateTime, actualTrack }, i) => (
+        <TrainEntry
+          direction={direction}
+          departure={plannedDateTime}
+          track={actualTrack}
+          key={i}
+        />
       ))}
     </table>
   );

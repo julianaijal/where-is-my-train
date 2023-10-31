@@ -12,4 +12,6 @@ export interface ITrain {
   direction: string;
   plannedDateTime?: string;
   departure?: string;
+  actualTrack?: string;
+  track?: string;
 }

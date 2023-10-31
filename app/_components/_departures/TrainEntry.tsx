@@ -1,9 +1,11 @@
 import { ITrain } from "../../interfaces/interfaces";
 
-const TrainEntry = ({ direction, departure }: ITrain) => {
+const TrainEntry = ({ direction, departure, track}: ITrain) => {
   return (
     <tr>
-      {direction} - {departure}
+       <td>{departure}</td>
+       <td>{direction}</td>
+       <td>{track}</td>
     </tr>
   );
 };
