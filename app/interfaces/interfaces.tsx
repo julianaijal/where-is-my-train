@@ -5,3 +5,8 @@ export interface IStation {
   code: string;
 
 }
+
+export interface ITrain {
+  direction: string;
+  departure: string;
+}
