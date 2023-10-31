@@ -27,7 +27,7 @@ To get started with this project, follow these steps:
    
 2. Navigate into the project directory:
    ```bash
-   $ cd ns-api
+   $ cd where-is-my-train
    ```
 3. Install the requirements
    ```bash
@@ -69,4 +69,4 @@ bun dev
 
 ## Demo
 
-You can access a live demo of this app at [ns-api.vercel.app](http://ns-api.vercel.app).
+You can access a live demo of this app at [where-is-my-train.vercel.app](https://where-is-my-train.vercel.app).
