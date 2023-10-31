@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { IStation } from './interfaces/interfaces';
 import styles from './styles/Home.module.scss';
 import { getStationCodes } from './_utils/api';
@@ -8,9 +8,10 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [stationCodes, setStationCodes] = useState<IStation[]>([]);
   const [showNoResults, setShowNoResults] = useState(false);
-  const errorMessage = "We kunnen je bestemming niet vinden, probeer het opnieuw.";
+  const ERROR_MESSAGE =
+    'We kunnen je bestemming niet vinden, probeer het opnieuw.';
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
     setShowNoResults(false);
@@ -29,19 +30,17 @@ const Home = () => {
 
   const renderErrorMessage = () => (
     <div className={styles.searchList}>
-      <p className={styles.searchListItemError}>
-        {errorMessage}
-      </p>
+      <p className={styles.searchListItemError}>{ERROR_MESSAGE}</p>
     </div>
   );
 
-  const renderStation = (stationCode: IStation, i: number) => (
+  const renderStation = ({ code, namen }: IStation, i: number) => (
     <a
       key={i}
-      href={`/vertrektijden/${stationCode.code}`}
+      href={`/vertrektijden/${code}`}
       className={styles.searchListItem}
     >
-      🚉 {stationCode.namen.lang}
+      🚉 {namen.lang}
     </a>
   );
 
@@ -57,10 +56,12 @@ const Home = () => {
             value={searchQuery}
             onChange={handleSearch}
             className={styles.searchInput}
+            aria-label="Bestemming"
           />
           <button
             className={styles.searchButton}
             onClick={handleGetStationCodes}
+            aria-label="Search"
           >
             Search
           </button>
