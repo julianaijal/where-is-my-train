@@ -1,0 +1,22 @@
+/* Variables */
+$loader-border-color: #f9f3f3;
+$loader-background-color: #5b34db;
+
+/* Loader styles */
+.loader {
+  border: 0.5rem solid $loader-border-color;
+  border-top: 0.5rem solid $loader-background-color;
+  border-radius: 50%;
+  width: 3.75rem;
+  height: 3.75rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
