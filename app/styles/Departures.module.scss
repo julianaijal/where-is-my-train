@@ -3,7 +3,6 @@ $secondaryColor: rgb(255, 201, 23);
 
 .title {
   font-size: 32px;
-  color: rgb(0, 48, 130);
 }
 
 .main {
@@ -18,6 +17,7 @@ $secondaryColor: rgb(255, 201, 23);
 .departuresTable {
   width: 50%;
   border-collapse: collapse;
+  margin-top: 1rem;
 }
 
 .tableHeader {
