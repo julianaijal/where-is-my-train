@@ -6,7 +6,8 @@ const formatTime = (dateString: string | undefined) => {
     const date = new Date(dateString);
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    return `${hours}:${minutes}`;
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    return `${hours}:${formattedMinutes}`;
   }
 };
 
