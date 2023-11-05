@@ -14,3 +14,29 @@ $secondaryColor: rgb(255, 201, 23);
   height: 100vh;
   margin: 0;
 }
+
+.departuresTable {
+  width: 50%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.tableData {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.evenRow {
+  background-color: #939292;
+}
+
+.oddRow {
+}
