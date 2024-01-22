@@ -52,7 +52,6 @@ const WebVitals = () => {
     onFID(console.log);
     onLCP(console.log);
     onINP(console.log);
-    console.log('hallo');
   }, []); 
 
   return <script></script>;
