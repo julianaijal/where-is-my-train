@@ -3,6 +3,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { IStation } from './interfaces/interfaces';
 import styles from './styles/Home.module.scss';
 import { getStationCodes } from './_utils/api';
+import appConfig from '@/config/app.config';
+import Analytics from "./_lib/Analytics";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,35 +47,42 @@ const Home = () => {
   );
 
   return (
-    <main className={styles.main}>
-      <section className={styles.search}>
-        <h2 className={styles.searchSubtitle}>Stations informatie</h2>
-        <h1 className={styles.searchTitle}>Zoek je station</h1>
-        <div className={styles.searchWrapper}>
-          <input
-            type="text"
-            placeholder="Bestemming"
-            value={searchQuery}
-            onChange={handleSearch}
-            className={styles.searchInput}
-            aria-label="Bestemming"
-          />
-          <button
-            className={styles.searchButton}
-            onClick={handleGetStationCodes}
-            aria-label="Search"
-          >
-            Search
-          </button>
-        </div>
-        {showNoResults && renderErrorMessage()}
-        {stationCodes.length > 0 && (
-          <div className={styles.searchList}>
-            {stationCodes.map(renderStation)}
+    <>
+      {typeof appConfig.env.analyticsMeasurementId !== "undefined" && (
+        <Analytics
+          analyticsMeasurementId={appConfig.env.analyticsMeasurementId}
+        />
+      )}
+      <main className={styles.main}>
+        <section className={styles.search}>
+          <h2 className={styles.searchSubtitle}>Stations informatie</h2>
+          <h1 className={styles.searchTitle}>Zoek je station</h1>
+          <div className={styles.searchWrapper}>
+            <input
+              type="text"
+              placeholder="Bestemming"
+              value={searchQuery}
+              onChange={handleSearch}
+              className={styles.searchInput}
+              aria-label="Bestemming"
+            />
+            <button
+              className={styles.searchButton}
+              onClick={handleGetStationCodes}
+              aria-label="Search"
+            >
+              Search
+            </button>
           </div>
-        )}
-      </section>
-    </main>
+          {showNoResults && renderErrorMessage()}
+          {stationCodes.length > 0 && (
+            <div className={styles.searchList}>
+              {stationCodes.map(renderStation)}
+            </div>
+          )}
+        </section>
+      </main>
+    </>
   );
 };
 
