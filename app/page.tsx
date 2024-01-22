@@ -5,6 +5,7 @@ import styles from './styles/Home.module.scss';
 import { getStationCodes } from './_utils/api';
 import appConfig from '@/config/app.config';
 import Analytics from "./_lib/Analytics";
+import WebVitals from './_lib/WebVitals';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -48,6 +49,7 @@ const Home = () => {
 
   return (
     <>
+    <WebVitals/>
       {typeof appConfig.env.analyticsMeasurementId !== "undefined" && (
         <Analytics
           analyticsMeasurementId={appConfig.env.analyticsMeasurementId}
