@@ -1,61 +1,43 @@
-import React, { useEffect } from 'react';
-import { onCLS, onFID, onLCP, onINP } from 'web-vitals/attribution';
+import { type ReactElement, useEffect } from "react";
+import {
+  onCLS,
+  onFCP,
+  onFID,
+  onINP,
+  onLCP,
+  type CLSMetricWithAttribution,
+  type FCPMetricWithAttribution,
+  type FIDMetricWithAttribution,
+  type INPMetricWithAttribution,
+  type LCPMetricWithAttribution,
+} from "web-vitals/attribution";
 
-declare var gtag: Function;
+type WebVitalsPropsType =
+  | CLSMetricWithAttribution
+  | FCPMetricWithAttribution
+  | FIDMetricWithAttribution
+  | INPMetricWithAttribution
+  | LCPMetricWithAttribution;
 
-const WebVitals = () => {
-  const sendToGoogleAnalytics = ({ name, delta, value, id, attribution }: any) => {
-    if (typeof gtag === 'function') {
-        type EventParamsCommon = {
-          value: any;
-          metric_id: any;
-          metric_value: any;
-          metric_delta: any;
-        };
-
-        type EventParamsDynamic = {
-          debug_target?: any;
-        };
-
-        const eventParams: EventParamsCommon & EventParamsDynamic = {
-            value: delta,
-            metric_id: id,
-            metric_value: value,
-            metric_delta: delta,
-        };
-        
-        switch (name) {
-            case 'CLS':
-                eventParams.debug_target = attribution.largestShiftTarget;
-                break;
-            case 'FID':
-                eventParams.debug_target = attribution.eventTarget;
-                break;
-            case 'INP':
-                    eventParams.debug_target = attribution.eventTarget;
-                    break;
-            case 'LCP':
-                eventParams.debug_target = attribution.element;
-                break;
-        }
-        
-        gtag("event", name, eventParams);
-    }
+  export const sendWebVitalsToDataLayer = (metric: WebVitalsPropsType): void => {
+    const { name } = metric;
+    (window as any).dataLayer?.push({
+      event: name,
+      metric,
+    });
   };
+  
 
+const WebVitals = (): ReactElement => {
   useEffect(() => {
-    onCLS(sendToGoogleAnalytics);
-    onFID(sendToGoogleAnalytics);
-    onLCP(sendToGoogleAnalytics);
-    onINP(sendToGoogleAnalytics);
-    onCLS(console.log);
-    onFID(console.log);
-    onLCP(console.log);
-    onINP(console.log);
-    console.log('hallo');
-  }, []); 
+    onCLS(sendWebVitalsToDataLayer);
+    onFCP(sendWebVitalsToDataLayer);
+    onFID(sendWebVitalsToDataLayer);
+    onINP(sendWebVitalsToDataLayer);
+    onLCP(sendWebVitalsToDataLayer);
+  }, []);
 
-  return <script></script>;
+  return <></>;
 };
 
 export default WebVitals;
