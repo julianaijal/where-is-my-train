@@ -22,7 +22,8 @@ type WebVitalsPropsType =
   export const sendWebVitalsToDataLayer = (metric: WebVitalsPropsType): void => {
     const { name } = metric;
     (window as any).dataLayer?.push({
-      event: name,
+      event: 'web-vitals',
+      name,
       metric,
     });
   };
