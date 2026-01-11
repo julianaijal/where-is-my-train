@@ -5,16 +5,19 @@ import { fetchDepartureData } from './../../_utils/api';
 import Table from '@/app/_components/_departures/Table';
 import Loader from '@/app/_components/_partials/Loader';
 
-const Page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const [stationDepartureTimes, setStationDepartureTimes] = useState<
     { direction: string; plannedDateTime: string }[]
   >([]);
   const [loading, setLoading] = useState(true);
+  const [stationId, setStationId] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const departureData = await fetchDepartureData(params.id);
+        const resolvedParams = await params;
+        setStationId(resolvedParams.id);
+        const departureData = await fetchDepartureData(resolvedParams.id);
         setStationDepartureTimes(departureData);
         setLoading(false);
       } catch (error) {
@@ -24,7 +27,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     };
 
     fetchData();
-  }, [params.id]);
+  }, [params]);
 
   return (
     <section className={styles.main}>
