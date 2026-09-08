@@ -6,9 +6,7 @@ const withPWA = require('next-pwa')({
 });
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    webpackBuildWorker: true,
-  },
+  turbopack: {},
   env: {
     NS_API: process.env.API_KEY,
   },
