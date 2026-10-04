@@ -18,7 +18,7 @@
     "web-vitals": "^4.2.2"
   },
   "overrides": {
-    "serialize-javascript": "^7.1.1",
+    "serialize-javascript": "^7.1.2",
     "braces": "^3.0.3",
     "decode-uri-component": "^0.4.3",
     "elliptic": "^6.6.0"
